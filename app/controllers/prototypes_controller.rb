@@ -25,9 +25,9 @@ class PrototypesController < ApplicationController
   end
 
   def edit
-    if user_signed_in?
       @prototype = Prototype.find(params[:id])  
-    else redirect_to action: :index  
+    unless @prototype.user.id == current_user.id
+      redirect_to root_path
     end
   end
 
